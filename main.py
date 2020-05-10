@@ -1,3 +1,5 @@
+# time - O(N*N)
+# space - O(N)
 class Solution:
 
   def numTrees(self, n: int) -> int:
@@ -7,24 +9,11 @@ class Solution:
     obj[1] = 1
 
     for i in range(2, n + 1):
-      obj[i] = 0
-
-      # print('I = %d' % i)
       for turn in range(0, i):
-        opposite = i - turn - 1
-        # print('turn %d / %d' % (turn, opposite))
-
-        count = obj[turn] * obj[opposite]
-
         if i not in obj:
-          obj[i] = count
+          obj[i] = obj[turn] * obj[i - turn - 1]
         else:
-          obj[i] += count
-
-        # print('%d/%d = %d * %d (%d)' %
-        #       (turn, opposite, obj[turn], obj[opposite], obj[i]))
-
-    # print(obj)
+          obj[i] += obj[turn] * obj[i - turn - 1]
 
     return obj[n]
 
