@@ -1,4 +1,38 @@
+class Solution:
+
+  def numTrees(self, n: int) -> int:
+    obj = {}
+
+    obj[0] = 1
+    obj[1] = 1
+
+    for i in range(2, n + 1):
+      obj[i] = 0
+
+      # print('I = %d' % i)
+      for turn in range(0, i):
+        opposite = i - turn - 1
+        # print('turn %d / %d' % (turn, opposite))
+
+        count = obj[turn] * obj[opposite]
+
+        if i not in obj:
+          obj[i] = count
+        else:
+          obj[i] += count
+
+        # print('%d/%d = %d * %d (%d)' %
+        #       (turn, opposite, obj[turn], obj[opposite], obj[i]))
+
+    # print(obj)
+
+    return obj[n]
+
+
 my = Solution()
-n = 0
-ans = my.(n)
+n = 5
+ans = my.numTrees(n)
 print("ans", ans)
+
+# Runtime: 20 ms, faster than 98.32% of Python3 online submissions for Unique Binary Search Trees.
+# Memory Usage: 14 MB, less than 10.71% of Python3 online submissions for Unique Binary Search Trees.
